@@ -20,3 +20,8 @@ Functionality
     - Code well formatted
     - HTML output passes the validator
 * 20 points: Creative Portion
+
+# Performance Evaluation
+
+* Apache web server performance evaluation on different AWS instance types
+* MySQL Performance evaluation on different AWS instance types
