@@ -6,6 +6,7 @@ Bing Zhang: 466439
 # Rubic
 
 * 5 points for creating a rubric 
+
 Checked by Jeong Min Lim   
 
 * 20 points: Learning and implementing Django.
