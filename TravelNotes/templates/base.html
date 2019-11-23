@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {# This styling comes from: https://codepen.io/albizan/pen/mMWdWZ #}
+        <title>Travel Notes</title>
+        <meta charset="utf-8">
+
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    </head>
+
+    <body>
+        <!-- Nav Bar -->
+        <nav class="nav">
+            <div class="container">
+                <div class="logo">
+                    <a href="">Travel Notes</a>
+                </div>
+                <div id="mainListDiv" class="main_list">
+                    <ul class="navlinks">
+                        <li><a href="">Story</a></li>
+                        <li><a href="favorites.html">Favorites</a></li>
+                        <li><a href="footprint.html">Footprint</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="/accounts/logout">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Go to the css file if you want to change the background image of the nav bar. -->
+        <section class="home">
+        </section>
+
+        {% block content %}{% endblock content %}
+
+        <!-- Jquery needed -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        {% load static %}
+        <script src="{% static 'js/base.js' %}"></script>
+
+        <!-- Function used to shrink nav bar removing paddings and adding black background -->
+        <script>
+            $(window).scroll(function() {
+                if ($(document).scrollTop() > 50) {
+                    $('.nav').addClass('affix');
+                    console.log("OK");
+                } else {
+                    $('.nav').removeClass('affix');
+                }
+            });
+        </script>
+
+    </body>
+</html>
