@@ -1,12 +1,12 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        {% load static %}
-        <link rel="stylesheet" href="{% static 'css/login.css' %}">
-    </head>
+{% extends 'login_base.html' %}
 
-    <body>
+{% block content %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/logged_out.css' %}">
+
+    <div class="center-screen main-font">
         <p>Logged out!</p>
         <a href="{% url 'login'%}">Click here to login again.</a>
-    </body>
-</html>
+    </div>
+
+{% endblock %}
