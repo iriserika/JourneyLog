@@ -8,30 +8,36 @@ from .forms import CommentForm
 # Create your views here.
 def comment_new(request, fk):
 	post = get_object_or_404(Note, pk=fk)
-	if request.method == "POST":
-		form = CommentForm(request.POST)
-		if form.is_valid():
-			comment = form.save(commit=False)
-			comment.note = post
-			comment.user = request.user
-			comment.save()
-			return redirect('post_detail', pk=post.pk)
+	if request.user.is_authenticated:
+		if request.method == "POST":
+			form = CommentForm(request.POST)
+			if form.is_valid():
+				comment = form.save(commit=False)
+				comment.note = post
+				comment.user = request.user
+				comment.save()
+				return redirect('post_detail', pk=post.pk)
+		else:
+			form = CommentForm()
 	else:
-		form = CommentForm()
+		return redirect('/accounts/login')
 	return render(request, 'comment/comment_edit.html', {'form': form})
 
 
 def comment_edit(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
-    if request.method == "POST":
-    	form = CommentForm(request.POST, instance=comment)
-    	if form.is_valid():
-    		comment = form.save(commit=False)
-    		comment.user = request.user
-    		comment.save()
-    		return redirect('post_detail', pk=comment.note.pk)
+    if request.user == comment.user:
+    	if request.method == "POST":
+    		form = CommentForm(request.POST, instance=comment)
+    		if form.is_valid():
+    			comment = form.save(commit=False)
+    			comment.user = request.user
+    			comment.save()
+    			return redirect('post_detail', pk=comment.note.pk)
+    	else:
+    		form = CommentForm(instance=comment)
     else:
-    	form = CommentForm(instance=comment)
+    	return redirect('post_detail', pk=comment.note.pk)
     return render(request, 'comment/comment_edit.html', {'form': form})
 
 def comment_delete(request, pk):

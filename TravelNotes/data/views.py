@@ -9,8 +9,7 @@ from favorites.models import Favorite
 # Create your views here.
 def show_home_page(request):
     posts = Note.objects.order_by('created_date')
-    favorites = Favorite.objects.filter(user = request.user)
-    return render(request, 'home.html', {'posts': posts, 'favorites': favorites})
+    return render(request, 'home.html', {'posts': posts})
 
 
 def signup(request):

@@ -5,6 +5,7 @@ from .models import Note
 from .forms import PostForm
 from comment.models import Comment
 from favorites.models import Favorite
+from data.views import *
 
 
 def post_list(request):
@@ -14,26 +15,31 @@ def post_list(request):
 def post_detail(request, pk):
     post = get_object_or_404(Note, pk=pk)
     comments = Comment.objects.filter(note = post)
-    favorite = Favorite.objects.filter(note = post).exists()
+    favorite = {}
+    if request.user.is_authenticated:
+        favorite = Favorite.objects.filter(note = post, user = request.user).exists()
     return render(request, 'note/post_detail.html', {'post': post, 'comments': comments, 'favorite': favorite})
 
 def post_new(request):
-    if request.method == "POST":
-        form = PostForm(request.POST, request.FILES)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            post.save()
-            return redirect('post_detail', pk=post.pk)
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            form = PostForm(request.POST, request.FILES)
+            if form.is_valid():
+                post = form.save(commit=False)
+                post.author = request.user
+                post.save()
+                return redirect('post_detail', pk=post.pk)
+        else:
+            form = PostForm()
     else:
-        form = PostForm()
+        return redirect('/accounts/login')
     return render(request, 'note/post_edit.html', {'form': form})
 
 def post_edit(request, pk):
     post = get_object_or_404(Note, pk=pk)
     if request.user == post.author:
         if request.method == "POST":
-            form = PostForm(request.POST, instance=post)
+            form = PostForm(request.POST, request.FILES, instance=post)
             if form.is_valid():
                 post = form.save(commit=False)
                 post.author = request.user
