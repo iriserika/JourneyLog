@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- <form method="POST">
+<input type="submit" name="Weekend" value="Weekend" />
+</form>
+<form>
+<input type="submit" name="Short" value="Short" />
+</form>
+<form>
+<input type="submit" name="Long" value="Long" />
+</form>
+<form>
+<input type="submit" name="Gap" value="Gap" />
+</form>
+ -->
+Category:
+<a href="{% url 'post_weekend' %}" class="btn btn-outline-primary">Weekend</a>
+<a href="{% url 'post_short' %}" class="btn btn-outline-primary">Short</a>
+<a href="{% url 'post_long' %}" class="btn btn-outline-primary">Long</a>
+<a href="{% url 'post_gap' %}" class="btn btn-outline-primary">Gap</a>
+<a href="{% url 'post_list' %}" class="btn btn-outline-primary">View All</a>
+
+{% for post in posts %}
+<div class="card" style="margin: 1rem auto;">
+	<div class="row">
+		<div class="col-3">
+			<img src="{{ post.cover.url}}" class="img-fluid" alt="{{ post.title }}">
+		</div>
+		<div class="col-9">
+			<div class="card-body">
+
+				<h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
+				<p class="float-right" style="color: grey;">{{ post.created_date }}</p>
+    			<p><em>Author: {{ post.author }}</em></p>
+    			
+			    <p>{{ post.text|truncatewords:30 }}</p>
+			    <span class="badge badge-pill badge-light float-right">{{ post.tag }}</span>
+			    
+			</div>
+		</div>
+	</div>
+</div>
+{% endfor %}
+
+{% endblock %}

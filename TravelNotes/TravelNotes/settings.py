@@ -39,7 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'data.apps.DataConfig',
     'favorites.apps.FavoritesConfig',
-    'footprint.apps.FootprintConfig'
+    'footprint.apps.FootprintConfig',
+    'notes.apps.NotesConfig',
+    'comment.apps.CommentConfig',
 ]
 
 MIDDLEWARE = [
@@ -132,3 +134,6 @@ LOGIN_REDIRECT_URL = '/home'
 AUTHENTICATION_BACKENDS = (
         'django.contrib.auth.backends.ModelBackend',
     )
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

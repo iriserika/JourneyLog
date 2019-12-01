@@ -1,17 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        {# This styling comes from: https://codepen.io/albizan/pen/mMWdWZ #}
-        <title>Travel Notes</title>
-        <meta charset="utf-8">
+<head>
+    {# This styling comes from: https://codepen.io/albizan/pen/mMWdWZ #}
+    <title>Travel Notes</title>
+    <meta charset="utf-8">
 
-        {% load static %}
-        <link rel="stylesheet" href="{% static 'css/base.css' %}">
-    </head>
+    {% load static %}
+    <!-- <link rel="stylesheet" href="{% static 'css/base.css' %}"> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
 
-    <body>
-        <!-- Nav Bar -->
-        <nav class="nav">
+<body>
+{% include 'navbar.html' %} 
+
+<div class="container">
+
+        
+        <!-- <nav class="nav">
             <div class="container">
                 <div class="logo">
                     <a href="">Travel Notes</a>
@@ -25,11 +30,11 @@
                     </ul>
                 </div>
             </div>
-        </nav>
+        </nav> -->
 
         <!-- Go to the css file if you want to change the background image of the nav bar. -->
-        <section class="home">
-        </section>
+<!--         <section class="home">
+        </section> -->
 
         {% block content %}{% endblock content %}
 
@@ -48,7 +53,11 @@
                     $('.nav').removeClass('affix');
                 }
             });
-        </script>
+        </script>    
 
-    </body>
+    </div>
+    <!-- Nav Bar -->
+    
+
+</body>
 </html>

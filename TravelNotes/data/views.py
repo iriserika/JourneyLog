@@ -2,11 +2,15 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
+from notes.models import Note
+from favorites.models import Favorite
 
 
 # Create your views here.
 def show_home_page(request):
-    return render(request, 'home.html')
+    posts = Note.objects.order_by('created_date')
+    favorites = Favorite.objects.filter(user = request.user)
+    return render(request, 'home.html', {'posts': posts, 'favorites': favorites})
 
 
 def signup(request):

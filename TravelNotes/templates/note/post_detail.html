@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+	<div class="col-lg-3">
+	</div>
+
+	<div class="col-lg-9">
+		<div class="card" style="margin-bottom: 1rem;">
+			<img src="{{ post.cover.url}}" class="card-img-top" style="padding: 2.5%">
+			<div class="card-body">
+				{% if not favorite %}
+					<a href="{% url 'add_favorite' fk=post.pk %}" class="card-link float-right" role="button">Add to Favorites</a>
+				{% else %}
+					<a href="{% url 'remove_favorite' fk=post.pk %}" class="card-link float-right" role="button">Remove from Favorites</a>
+				{% endif %}
+				<h5 class="card-title text-primary">{{ post.title }}</h5>
+				
+				<p>{{ post.text|linebreaksbr }}</p>
+				<p class="float-right" style="color: grey;">{{ post.created_date }}</p>
+				<p><em>Submitted By {{ post.author }}</em></p>
+				
+				<a class="btn btn-sm btn-warning" href="{% url 'post_edit' pk=post.pk %}">Edit</a>
+				<a class="btn btn-sm btn-danger" href="{% url 'post_delete' pk=post.pk %}">Delete</a>
+				<span class="badge badge-pill badge-light float-right">{{ post.tag }}</span>
+			</div>
+			
+		</div>
+
+		<div class="card bg-light mb-3">
+            <div class="card-header text-right">
+                <a class="btn btn-success" href="{% url 'comment_new' fk=post.pk %}">Add New Comment</a>
+            </div>
+            <div class="card-body">
+                {% for comment in comments %}
+            	<div class="row">
+            		<div class="col-12">
+            			<span class="float-right">{{ comment.comment_date }}</span>
+            			<strong>{{ comment.user }}</strong>
+            			<p>{{ comment.comment }}</p>
+            			<div class="btn-group float-right">
+	            			<a class="btn btn-sm btn-warning" href="{% url 'comment_edit' pk=comment.pk %}">Edit</a>
+	                    	<a class="btn btn-sm btn-danger" href="{% url 'comment_delete' pk=comment.pk %}" >Delete</a>
+            			</div>
+            		</div>
+            	</div>
+                {% endfor %}
+            </div>
+        </div>
+	</div>
+</div>
+
+{{ comment }}
+{% endblock %}

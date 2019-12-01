@@ -2,4 +2,26 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
+{% for favorite in favorites %}
+
+<div class="card" style="margin: 1rem auto;">
+	<div class="row">
+		<div class="col-3">
+			<img src="{{ favorite.note.cover.url}}" class="img-fluid" alt="{{ favorite.note.title }}">
+		</div>
+		<div class="col-9">
+			<div class="card-body">
+
+				<h2><a href="{% url 'post_detail' pk=favorite.note.pk %}">{{ favorite.note.title }}</a></h2>
+				<p class="float-right" style="color: grey;">{{ favorite.note.created_date }}</p>
+    			<p><em>Author: {{ favorite.note.author }}</em></p>
+    			
+			    <p>{{ post.text|truncatewords:30 }}</p>
+			    <span class="badge badge-pill badge-light float-right">{{ favorite.note.tag }}</span>
+			    
+			</div>
+		</div>
+	</div>
+</div>
+{% endfor %}
 {% endblock %}

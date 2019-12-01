@@ -2,4 +2,27 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
+<div class="jumbotron">
+    <h1 class="display-4">Travel Notes</h1>
+    <p class="lead">Stories, pictures and tips from around the world.</p>
+    <a class="btn btn-primary btn-lg" href="{% url 'post_new' %}" role="button">Post Notes</a>
+</div>
+<div class="row">
+{% for post in posts %}
+<div class="col-lg-3 col-md-6">
+	<div class="card" style="margin-bottom: 1rem;">
+		<img src="{{ post.cover.url}}" alt="{{ post.title }}" class="card-img-top" style="padding: 2.5%">
+		<div class="card-body">
+			<h5 class="card-title text-center">{{ post.title }}</h5>
+			
+			<a href="{% url 'post_detail' pk=post.pk %}" class="card-link" role="button">More Info</a>
+			<span class="badge badge-pill badge-light float-right">{{ post.tag }}</span>
+			<!-- <a href="" class="card-link float-right" role="button">❤</a> -->
+		</div>
+            
+	</div>
+</div>
+
+{% endfor %}
+</div>
 {% endblock %}
