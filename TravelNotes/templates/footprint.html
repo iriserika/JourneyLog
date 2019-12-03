@@ -5,8 +5,8 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/footprint.css' %}">
 
-    <div id="add-location-form">
-        <form action="/your-name/" method="post">
+    <div>
+        <form action="add_location_to_db" method="post" id="post-form">
             {% csrf_token %}
             <label for="latitude">latitude: </label>
             <input id="latitude" type="text" name="latitude">
@@ -23,19 +23,23 @@
     </div>
 
     <script>
+        var locations = {{ locations }}
+        var pinpoints = []
+        locations.forEach(element => {
+            var d = {}
+            d['lat'] = element[0]
+            d['lng'] = element[1]
+            pinpoints.push(d)
 
-        var pinpoints = [{lat: -25.344, lng: 131.036}, {lat: 37.8199,lng: -122.4783}]
+        })
 
         function initMap() {
             var uluru = {lat: -25.344, lng: 131.036};
 
             var map = new google.maps.Map(
-              document.getElementById('map'), {zoom: 4, center: uluru});
-
-            console.log(pinpoints)
-
+                document.getElementById('map'), {zoom: 4, center: uluru}
+                );
             pinpoints.forEach(element => {
-                console.log(element)
                 // Add location markers to the map.
                 new google.maps.Marker({position: element, map: map});
             })
